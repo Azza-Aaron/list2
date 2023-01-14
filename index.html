@@ -38,17 +38,9 @@
         </tr>
         </tbody>
     </table>
-    <div class="container" id="footer">
-        <button id="btn-el" onclick="addItem()">ADD ITEM</button>
-        <div id="a">
-
-        </div>
-        <div id="b">
-
-        </div>
-        <div id="c">
-
-        </div>
+    <div id="footer">
+        <button id="btn-add-item" class="btn btn-primary" onclick="addItem()">ADD ITEM</button>
+        <div id="job-input-div"></div>
     </div>
 </div>
 
@@ -57,23 +49,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
+    <script src="index.js"></script>
     <script>
-        const exampleDate = moment('10/12/2022', "DD MM YYYY")
-        console.log(exampleDate)
-        function checkDueDate(date){
-            if(moment().isAfter(date)){
-                console.log('too late')
+        function validateAllDates(myJobs){
+            console.log('validate dates now')
+            for (let i = 0; i < myJobs.length; i++) {
+                const setDivOverDue = document.getElementById(`todo${i}`)
+                console.log(i)
+                const date = myJobs[i].due
+                console.log(`fresh date = ${date}`)
+                const dateElement = document.getElementById(`due${i}`)
+
+                if (!dateElement.innerText) {console.log('failed a'); continue}
+                if (!date.match( /^\d{2}\/\d{2}\/\d{4}$/ )) {
+                    console.log('failed b');
+                    dateElement.innerText = "Date Format Incorrect Must Be DD/MM/YYYY"
+                    continue}
+
+                checkDueDate(date, i, setDivOverDue)
+
+            }
+        }
+
+        function checkDueDate(date, i, setDivOverDue){
+            const formattedDate = moment(date, '"DD MM YYYY"')
+            console.log(formattedDate)
+            if (formattedDate._isValid === false) {
+                console.log("invalid date")
+                setDivOverDue.className = 'overdue'
+            }
+            if(moment().isAfter(formattedDate)){
+                console.log('html moment is too late')
+                const setDivOverDue = document.getElementById(`todo${i}`);
+                setDivOverDue.className = 'overdue'
             }
             else{
                 console.log('date to come')
             }
-
         }
-        console.log(checkDueDate(exampleDate))
     </script>
-
-    <script src="index.js"></script>
 
 
 </body>

@@ -1,114 +1,119 @@
-// objectives //add stuff //remove stuff// move stuff
 
-// Three lists that always have same index
-let jobList = [];
-let descriptionList = [];
-let dueList = [];
+let myJobs = []
 
 //GET FROM DOM
 const toDoContainer = document.getElementById('toDoContainer');
-const addButton = document.getElementById('btn-el');
-const footerContainer = document.getElementById('footer');
-const aDiv = document.getElementById('a');
+const jobInputDiv = document.getElementById('job-input-div');
 
-//ADD ITEM -create title input, on enter -create description input, on enter -create due date input
+//ADD ITEM BUTTON
 function addItem(){
+    jobInputDiv.replaceChildren()
+    jobInputDiv.appendChild(document.createElement("br"));
+    createInputs("label-input-job", "Job", "job")
+    createInputs("label-b", "Description", "description")
+    createInputs("label-c", "Due DD/MM/YYYY", "date")
+}
+
+//PROCESS INPUTS
+function createInputs(labelName, labelText, inputName) {
     let createLabel = document.createElement("label");
     let createInput = document.createElement("input");
-    let createLineBR = document.createElement("br");
-    createLabel.id="label-input-job";
-    createLabel.innerText="Job";
-    createInput.id="job";
-    aDiv.appendChild(createLineBR);
-    aDiv.appendChild(createLabel);
-    aDiv.appendChild(createInput);
-    let createLabelb = document.createElement("label");
-    let createInputb = document.createElement("input");
-    createLabelb.id="label-b";
-    createLabelb.innerText="Description";
-    createInputb.id="description";
-    aDiv.appendChild(createLabelb);
-    aDiv.appendChild(createInputb);
-    let createLabelc = document.createElement("label");
-    let createInputc = document.createElement("input");
-    createLabelc.id="label-b";
-    createLabelc.innerText="Due DD/MM/YYYY";
-    createInputc.id="date";
-    aDiv.appendChild(createLabelc);
-    aDiv.appendChild(createInputc);
-    createInputc.addEventListener('keypress', function (e){
-        if(e.key === 'Enter') {
-            enterEventListener();
-    }})
-    createInputb.addEventListener('keypress', function (e){
-        if(e.key === 'Enter') {
-            enterEventListener();
-        }})
+    createLabel.id = labelName;
+    createLabel.innerText = labelText;
+    createInput.id = inputName;
+    jobInputDiv.appendChild(createLabel);
+    jobInputDiv.appendChild(createInput);
+
     createInput.addEventListener('keypress', function (e){
         if(e.key === 'Enter') {
+            //const iAm = e.target.id;
+            //const passValue = e.target.value;
+            const matches = document.querySelectorAll("input");
+
+            for (let i = 0; i < matches.length; i++) {
+                if(!matches[i].value){
+                    matches[i].style.color = 'red';
+                    matches[i].value = "Please Enter Information";
+                    return;
+                }
+            }
+            for (let i = 0; i < matches.length; i++) {
+                if(matches[i].value === "Please Enter Information"){
+                    matches[i].style.color = 'red';
+                    matches[i].value = "Please Enter Information";
+                    return;
+                }
+            }
+            myJobs.push (
+                {
+                    job: matches[0].value,
+                    desc: matches[1].value,
+                    due: matches[2].value
+                }
+            )
+            testDate(matches[2].value)
             enterEventListener();
-        }})
-}
-
-function enterEventListener(){
-        const inputJob = document.getElementById('job');
-        const inputDescription = document.getElementById('description');
-        const inputDate = document.getElementById('date');
-        if(!inputJob.value){window.alert("Enter Job"); return;}
-        if(!inputDescription.value){window.alert("Enter Description"); return;}
-        if(!inputDate.value){window.alert("Enter Date"); return;}
-        jobList.push(inputJob.value);
-        descriptionList.push(inputDescription.value);
-        dueList.push(inputDate.value);
-        addValueToList();
-        inputJob.value = "";
-        inputDescription.value = "";
-        inputDate.value = "";
-        while (aDiv.firstChild) {
-            aDiv.removeChild(aDiv.lastChild);
         }
+    })
 }
 
+//AFTER ENTER/SUBMIT BUTTON HIT
+function enterEventListener(){
+        toDoContainer.replaceChildren()
+        for(let i = 0; i < myJobs.length; i++) {
+            const job = myJobs[i];
+            const createDivTr = document.createElement("tr");
+                createDivTr.id = `todo${i}`;
+                createDivTr.className = `task`;
+            toDoContainer.appendChild(createDivTr);
+            createTdElements(job, i, createDivTr)
+            addTdEventListener(i)
+            //console.log(`job ${job.job} desdcription ${job.desc} due ${job.desc}`);
+        }
+        jobInputDiv.replaceChildren()
+        validateAllDates(myJobs)
+}
 
-function addValueToList(){
-    for (let i = 0; i < jobList.length; i++) {
-        const createDivTr = document.createElement("tr");
-        createDivTr.id = `todo${i}`;
-        createDivTr.class = `todo`;
-        toDoContainer.appendChild(createDivTr);
-        const createJobDivTd = document.createElement("td");
-        const createDescDivTd = document.createElement("td");
-        const createDueDivTd = document.createElement("td");
-        createJobDivTd.innerText = jobList[i];
-        createJobDivTd.id = `job${i}`;
-        createJobDivTd.value = i;
-        createDescDivTd.innerText = descriptionList[i];
-        createDescDivTd.id = `desc${i}`;
-        createDueDivTd.innerText = dueList[i];
-        createDueDivTd.id = `desc${i}`;
-        createDivTr.appendChild(createJobDivTd);
-        createDivTr.appendChild(createDescDivTd);
-        createDivTr.appendChild(createDueDivTd);
+//PROCESS INPUT TO ELEMENTS
+function createTdElements(job, i, createDivTr){
+    const createJobDivTd = document.createElement("td");
+    const createDescDivTd = document.createElement("td");
+    const createDueDivTd = document.createElement("td");
+    createJobDivTd.innerText = job.job;
+    createJobDivTd.id = `job${i}`;
+    createJobDivTd.value = i;
+    createDescDivTd.innerText = job.desc;
+    createDescDivTd.id = `desc${i}`;
+    createDueDivTd.innerText = job.due;
+    createDueDivTd.id = `due${i}`;
+    createDueDivTd.customReference = `due`;
+    createDivTr.appendChild(createJobDivTd);
+    createDivTr.appendChild(createDescDivTd);
+    createDivTr.appendChild(createDueDivTd);
+}
+
+//PROCESS INPUT LISTENERS FOR ELEMENTS
+function addTdEventListener(i){
+        const createJobDivTd = document.getElementById(`job${i}`);
         createJobDivTd.addEventListener('click', function () {
-            const numberOf = event.target.value
-            const divName = `todo${numberOf}`
-            const divTrToChange = document.getElementById(divName)
-            if(divTrToChange.class === 'task'){divTrToChange.class = `done`; console.log(`changed to done`)}
-            else {divTrToChange.class = `task`; console.log(`changed to task`)}
-        });
-        createJobDivTd.addEventListener('dblclick', function () {
-            const numberOf = event.target.value
-            const divName = `todo${numberOf}`
-            const divTrToChange = document.getElementById(divName)
-            divTrToChange.class = 'overdue'
-        });
-    }
+        const divName = `todo${i}`
+        const divTrToChange = document.getElementById(divName)
+        if(divTrToChange.className === 'task'){
+            divTrToChange.className = `done`; console.log(`changed to done`)
+        }
+        else {
+            divTrToChange.className = `task`; console.log(`changed to task`)
+        }
+    });
+    createJobDivTd.addEventListener('dblclick', function () {
+        const divName = `todo${i}`
+        const divTrToChange = document.getElementById(divName)
+        divTrToChange.className = 'overdue'
+    });
 }
 
-
-
-//DATE LOGIC = class="success" or class="danger" or no class
-
-
-
-//BUILD LIST
+//DATE LOGIC
+function testDate(date){
+    if (date.match( /^\d{2}\/\d{2}\/\d{4}$/ )) {console.log("You have set a due date");}
+    else {console.log("Cannot process due date, check format!")}
+}

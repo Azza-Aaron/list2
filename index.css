@@ -1,0 +1,21 @@
+
+.overdue {
+    background-color: indianred;
+}
+
+.done {
+    background-color: lightgreen;
+}
+
+.task {
+    background-color: lightcyan;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+.titles {
+    background-color: black;
+    color: white;
+}

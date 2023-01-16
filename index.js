@@ -10,9 +10,9 @@ function addItem() {
   inputDiv.classList.add("form-outline");
   jobInputDiv.appendChild(inputDiv);
   inputDiv.replaceChildren();
-  const jobInput = createInputs("label-input-job", "Job", "job");
-  const descInput = createInputs("label-b", "Description", "description");
-  const dateInput = createInputs("label-c", "Due DD/MM/YYYY", "date");
+  const jobInput = createInputs("label-input-job", "Job: ", "job");
+  const descInput = createInputs("label-b", "Description: ", "description");
+  const dateInput = createInputs("label-c", "DD/MM/YYYY: ", "date");
 
   inputDiv.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -54,11 +54,11 @@ function createInputs(labelName, labelText, inputName) {
   let createLabel = document.createElement("label");
   let createInput = document.createElement("input");
   createLabel.id = labelName;
-  createLabel.class = "form-label";
   createLabel.innerText = labelText;
   createInput.id = inputName;
   inputName.type = "text";
-  createInput.class = "form-controlLm";
+  createLabel.classList.add("labelInputs");
+  createInput.classList.add("inputs");
   inputDiv.appendChild(createLabel);
   inputDiv.appendChild(createInput);
   return createInput;

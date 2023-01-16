@@ -11,6 +11,14 @@
     background-color: lightcyan;
 }
 
+.inputs {
+  border: red 3px solid;
+}
+
+.emptyInput {
+  border: red 3px solid;
+}
+
 body {
     background-color: #ffffff;
 }

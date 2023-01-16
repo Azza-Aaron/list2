@@ -20,5 +20,8 @@ function validateAllDates() {
     } else {
       document.getElementById(`due${i}`).classList.add("complianceIssue");
     }
+
+    const jobClass = divToChange.className;
+    job.classes = jobClass;
   }
 }

@@ -20,7 +20,9 @@
             <th>Due By</th>
           </tr>
         </thead>
-        <tbody id="toDoContainer"></tbody>
+        <tbody id="toDoContainer">
+
+        </tbody>
       </table>
       <div id="footer">
         <button id="btn-add-item" class="btn btn-primary" onclick="addItem()">
@@ -28,7 +30,6 @@
         </button>
         <br><br>
         <div id="job-input-div"></div>
-        <br><br>
       </div>
     </div>
 
@@ -43,50 +44,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="index.js"></script>
-    <script>
-      function validateAllDates(myJobs) {
-        console.log("validate dates now");
-        for (let i = 0; i < myJobs.length; i++) {
-          const setDivOverDue = document.getElementById(`todo${i}`);
-          console.log(i);
-          const date = myJobs[i].due;
-          console.log(`fresh date = ${date}`);
-          const dateElement = document.getElementById(`due${i}`);
-
-          if (!dateElement.innerText) {
-            console.log("failed a");
-            continue;
-          }
-          if (!date.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-            //use moment isValid
-            console.log("failed b");
-            dateElement.innerText = "Date Format Incorrect Must Be DD/MM/YYYY";
-            continue;
-          }
-
-          //moment parse dd/mm/yyyy
-          // moment.isValid() <- is the parsed date valid
-
-          checkDueDate(date, i, setDivOverDue);
-        }
-      }
-
-      function checkDueDate(date, i, setDivOverDue) {
-        const formattedDate = moment(date, '"DD MM YYYY"');
-        console.log(formattedDate);
-        if (!formattedDate._isValid) {
-          // !var is same as var === false
-          console.log("invalid date");
-          setDivOverDue.className = "overdue";
-        }
-        if (moment().isAfter(formattedDate)) {
-          console.log("html moment is too late");
-          const setDivOverDue = document.getElementById(`todo${i}`);
-          setDivOverDue.className = "overdue";
-        } else {
-          console.log("date to come");
-        }
-      }
-    </script>
+    <script src="dates.js"></script>
+    <script src="validateInput.js"></script>
+    <script src="createElements.js"></script>
+    <script src="tdEventListeners.js"></script>
+    <script src="onEnterAfterInput.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 //AFTER ENTER/SUBMIT BUTTON HIT
-function enterEventListener() {
+function renderList() {
   toDoContainer.replaceChildren();
   for (let i = 0; i < myJobs.length; i++) {
     const job = myJobs[i];

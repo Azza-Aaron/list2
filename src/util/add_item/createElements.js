@@ -15,18 +15,15 @@ function createInputs(labelName, labelText, inputName) {
 
 //PROCESS INPUT TO ELEMENTS
 function createTdElements(job, i, createDivTr) {
-  const createJobDivTd = document.createElement("td");
-  const createDescDivTd = document.createElement("td");
-  const createDueDivTd = document.createElement("td");
-  createJobDivTd.innerText = job.job;
-  createJobDivTd.id = `job${i}`;
-  createJobDivTd.value = i;
-  createDescDivTd.innerText = job.desc;
-  createDescDivTd.id = `desc${i}`;
-  createDueDivTd.innerText = job.due;
-  createDueDivTd.id = `due${i}`;
-  createDueDivTd.customReference = `due`;
-  createDivTr.appendChild(createJobDivTd);
-  createDivTr.appendChild(createDescDivTd);
-  createDivTr.appendChild(createDueDivTd);
+  tdElementShortcut(job.job, `job${i}`, i, createDivTr);
+  tdElementShortcut(job.desc, `desc${i}`, i, createDivTr);
+  tdElementShortcut(job.due, `due${i}`, i, createDivTr);
+}
+
+function tdElementShortcut(inputText, inputId, inputValue, createDivTr) {
+  const element = document.createElement("td");
+  element.innerText = inputText;
+  element.id = inputId;
+  element.value = inputValue;
+  createDivTr.appendChild(element);
 }

@@ -1,25 +1,24 @@
-function exportCSV(exportButton) {
-  let exportList = [
-    "Title",
-    "Description",
-    "Due Date",
-    "Date Validity",
-    "Class List",
-  ];
+function exportCSV() {
+  let exportList = ["Title, Description, Due Date, Date Validity, Class List"];
   for (let i = 0; i < myJobs.length; i++) {
     const jobbies = myJobs[i];
-    const exportJobs = `\n${jobbies.job}, ${jobbies.desc}, ${jobbies.due}, ${jobbies.date}, ${jobbies.classes}`;
+    const exportJobs = `\n${jobbies.job}, ${jobbies.desc}, ${jobbies.due}, ${jobbies.isDateTrueFalse}, ${jobbies.classes}`;
     exportList.push(exportJobs);
   }
 
-  actualDownload(exportList, exportButton);
+  return exportList;
+
+  //const downloadCSV = document.createElement("a");
+
+  //actualDownload(exportList, exportDiv);
 }
 
-function actualDownload(exportList, exportButton) {
+/*function actualDownload(exportList, exportDiv) {
   const downloadCSV = document.createElement("a");
-  const file = new Blob(exportList, { type: "csv" });
+  const file = new Blob(exportList, { type: ".csv" });
   downloadCSV.href = URL.createObjectURL(file);
-  downloadCSV.download = "Download Jobs";
-  downloadCSV.download = true;
-  exportButton.appendChild(downloadCSV);
-}
+  downloadCSV.innerText = "Download Jobs";
+  downloadCSV.download = "job_list.csv";
+  exportDiv.appendChild(downloadCSV);
+  console.log("end of download function");
+}*/

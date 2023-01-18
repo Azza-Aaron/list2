@@ -1,4 +1,5 @@
 //ADD ITEM BUTTON
+
 function addItem() {
   inputDiv.classList.add("form-outline");
   jobInputDiv.appendChild(inputDiv);
@@ -7,25 +8,30 @@ function addItem() {
   const descInput = createInputs("label-b", "Description: ", "description");
   const dateInput = createInputs("label-c", "DD/MM/YYYY: ", "date");
 
+  //addListenInput(inputDiv, jobInput, descInput, dateInput);
   inputDiv.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-      if (!validateInputs(jobInput, descInput, dateInput)) {
-        return;
-      }
-      const dateBoolean = validateDate(dateInput);
-      myJobs.push({
-        job: jobInput.value,
-        desc: descInput.value,
-        due: dateInput.value,
-        date: dateBoolean,
-        classes: "",
-      });
-
-      enterEventListener();
-      // EVENT LISTENERS WONT BE REMOVED WITH THE CHILD SO VALUE MUST BE SET TO ""
-      jobInput.value = "";
-      descInput.value = "";
-      dateInput.value = "";
+      console.log(`firing`);
+      inputFunction(jobInput, descInput, dateInput);
     }
   });
+  //eventHandler(inputDiv, jobInput, descInput, dateInput);
+}
+
+function inputFunction(jobInput, descInput, dateInput) {
+  if (!validateInputs(jobInput, descInput, dateInput)) {
+    return;
+  }
+
+  myJobs.push({
+    job: jobInput.value,
+    desc: descInput.value,
+    due: dateInput.value,
+    isDateTrueFalse: validateDate(dateInput),
+    status: defaultClassStatus.TASK, //urgent (td-urgent), due, done -- check howto enums
+  });
+
+  //ACTIVATE RENDER
+  validateAllDates(myJobs);
+  renderList();
 }

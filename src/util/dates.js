@@ -2,7 +2,6 @@ function validateAllDates() {
   for (let i = 0; i < myJobs.length; i++) {
     const job = myJobs[i];
     const divToChange = document.getElementById(`todo${i}`);
-    //date business - date has been validated on a boolean
     console.log(job.job);
     console.log(divToChange);
     if (job.date) {

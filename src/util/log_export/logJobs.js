@@ -5,7 +5,7 @@ function logList() {
     const jobbies = myJobs[i];
     para.innerText = `
     Job Title: ${jobbies.job} - Description: ${jobbies.desc} - Due Date: ${jobbies.due}
-    - Date Validity: ${jobbies.date} - Class List: ${jobbies.classes}
+    - Date Validity: ${jobbies.isDateTrueFalse} - Class List: ${jobbies.classes}
     `;
   }
 }
@@ -15,9 +15,7 @@ function createExportOption(para) {
   const exportDiv = document.getElementById("export");
   exportDiv.replaceChildren();
   exportButton.id = "export-button";
-  exportButton.onclick = function () {
-    exportCSV(exportButton);
-  };
+  exportButton.onclick = function () {};
   exportButton.innerText = "Export CSV";
   exportButton.classList.add("btn-primary");
   exportDiv.appendChild(exportButton);

@@ -11,12 +11,22 @@ function logList() {
 }
 
 function createExportOption(para) {
+  const downloadCSV = document.createElement("a");
   const exportButton = document.createElement("button");
   const exportDiv = document.getElementById("export");
   exportDiv.replaceChildren();
+
+  const exportList = exportCSV();
+  const file = new Blob(exportList, { type: ".csv" });
+  downloadCSV.href = URL.createObjectURL(file);
+  downloadCSV.download = "job_list.csv";
+  exportDiv.appendChild(downloadCSV);
+  //console.log("end of download function");
+
   exportButton.id = "export-button";
   exportButton.onclick = function () {};
   exportButton.innerText = "Export CSV";
   exportButton.classList.add("btn-primary");
-  exportDiv.appendChild(exportButton);
+  downloadCSV.appendChild(exportButton);
+  exportDiv.appendChild(downloadCSV);
 }

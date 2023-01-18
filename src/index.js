@@ -20,4 +20,6 @@ const userClassStatus = Object.freeze({
 //GET FROM DOM
 const toDoContainer = document.getElementById("toDoContainer");
 const jobInputDiv = document.getElementById("job-input-div");
-const inputDiv = document.createElement("inputDiv");
+
+//console.log(document.getElementById("inputDiv"))
+//getEventListeners(document.getElementById("inputDiv"))

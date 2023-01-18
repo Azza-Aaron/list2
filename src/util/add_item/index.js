@@ -1,9 +1,13 @@
 //ADD ITEM BUTTON
 
 function addItem() {
+  const inputDiv = document.createElement("div");
+  inputDiv.id = "inputDiv";
   inputDiv.classList.add("form-outline");
-  jobInputDiv.appendChild(inputDiv);
+  jobInputDiv.replaceChildren();
   inputDiv.replaceChildren();
+  jobInputDiv.appendChild(inputDiv);
+
   const jobInput = createInputs("label-input-job", "Job: ", "job");
   const descInput = createInputs("label-b", "Description: ", "description");
   const dateInput = createInputs("label-c", "DD/MM/YYYY: ", "date");

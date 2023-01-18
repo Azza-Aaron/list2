@@ -1,24 +1,29 @@
 //PROCESS INPUT LISTENERS FOR ELEMENTS
-function addTdEventListener(i, passDiv) {
+function addTdEventListener(job, passDiv) {
   passDiv.addEventListener("click", function () {
-    //todo update the job when changing the status / class
-    //
-    if (passDiv.className === "task") {
-      //todo set the status on job
-      //trigger renderList() to redraw all items
-      /*
-        job.status = "done";
-        renderList();
-      */
-      passDiv.classList.remove("done", "overdue", "task", "urgent");
-      passDiv.classList.add("done");
+    if (returnUserOrDefault(job) === "default") {
+      console.log(job);
+      console.log("default class status should change");
+      job.status = userClassStatus.TASK;
+      passDiv.className = "task";
+    }
+    if (
+      job.status === userClassStatus.TASK ||
+      job.status === userClassStatus.URGENT
+    ) {
+      job.status = userClassStatus.DONE;
+      console.log("done renderering making done");
+      console.log(job.status);
+      renderList();
     } else {
-      passDiv.classList.remove("done", "overdue", "task", "urgent");
-      passDiv.classList.add(`task`);
+      job.status = userClassStatus.URGENT;
+      console.log("else renderering making urgent");
+      renderList();
     }
   });
   passDiv.addEventListener("dblclick", function () {
-    passDiv.classList.remove("done", "overdue", "task", "urgent");
-    passDiv.classList.add("overdue");
+    console.log("double clicked");
+    job.status = defaultClassStatus.TASK;
+    renderList();
   });
 }

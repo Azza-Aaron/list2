@@ -26,7 +26,7 @@ function inputFunction(jobInput, descInput, dateInput) {
   if (!validateInputs(jobInput, descInput, dateInput)) {
     return;
   }
-
+  //console.log(defaultClassStatus.TASK);
   myJobs.push({
     job: jobInput.value,
     desc: descInput.value,
@@ -36,6 +36,6 @@ function inputFunction(jobInput, descInput, dateInput) {
   });
 
   //ACTIVATE RENDER
-  validateAllDates(myJobs);
+  //validateAllDates(myJobs);
   renderList();
 }

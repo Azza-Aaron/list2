@@ -19,6 +19,26 @@
     color: #ff3e00;
 }
 
+.uOverdue {
+    background-color: indianred;
+}
+
+.uDone {
+    background-color: lightgreen;
+}
+
+.uTask {
+    background-color: lightcyan;
+}
+
+.uUrgent {
+    background-color: orange;
+}
+
+.uComplianceIssue {
+    color: #ff3e00;
+}
+
 .labelInputs {
     font-family:  Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -50,4 +70,8 @@ body {
 .titles {
     background-color: black;
     color: white;
+}
+
+#export {
+    margin-left: 770px;
 }

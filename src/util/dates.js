@@ -2,26 +2,42 @@ function validateAllDates() {
   for (let i = 0; i < myJobs.length; i++) {
     const job = myJobs[i];
     const divToChange = document.getElementById(`todo${i}`);
+    //isDateTrueFalse business - isDateTrueFalse has been validated on a boolean
     console.log(job.job);
     console.log(divToChange);
     if (job.isDateTrueFalse) {
-      divToChange.classList.remove("done", "overdue", "task", "urgent"); //todo set job status
+      if (returnUserOrDefault(job) === "user") {
+        return;
+      }
       if (moment().isSame(moment(job.due, formatOfDate), "date")) {
-        divToChange.classList.add("urgent"); //todo set job status
-        console.log("urgent");
+        job.status = defaultClassStatus.URGENT;
+        //console.log("urgent");
       } else if (moment().isAfter(moment(job.due, formatOfDate))) {
-        divToChange.classList.add("overdue"); //todo set job status
-        console.log("overdue");
+        job.status = defaultClassStatus.OVERDUE;
+        //console.log("overdue");
       } else {
-        divToChange.classList.add("task"); //todo set job status
+        job.status = defaultClassStatus.TASK;
       }
     } else {
-      //todo set job status
-      document.getElementById(`due${i}`).classList.add("complianceIssue");
+      job.status = defaultClassStatus.ISSUE;
+      //document.getElementById(`due${i}`).classList.add("complianceIssue");
     }
+  }
+}
 
-    //todo remove this and re-render instead
-    const jobClass = divToChange.className;
-    job.classes = jobClass;
+function returnUserOrDefault(job) {
+  const j = job.status;
+  const u = userClassStatus;
+  if (
+    j === u.DONE ||
+    j === u.TASK ||
+    j === u.URGENT ||
+    j === u.ISSUE ||
+    j === u.OVERDUE
+  ) {
+    console.log("its user dont change with date constructor");
+    return "user";
+  } else {
+    return "default";
   }
 }

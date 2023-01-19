@@ -17,6 +17,7 @@
 
 .complianceIssue {
     color: #ff3e00;
+    background-color: lightcyan;
 }
 
 .uOverdue {
@@ -37,6 +38,7 @@
 
 .uComplianceIssue {
     color: #ff3e00;
+    background-color: lightcyan;
 }
 
 .labelInputs {

@@ -7,18 +7,4 @@ function exportCSV() {
   }
 
   return exportList;
-
-  //const downloadCSV = document.createElement("a");
-
-  //actualDownload(exportList, exportDiv);
 }
-
-/*function actualDownload(exportList, exportDiv) {
-  const downloadCSV = document.createElement("a");
-  const file = new Blob(exportList, { type: ".csv" });
-  downloadCSV.href = URL.createObjectURL(file);
-  downloadCSV.innerText = "Download Jobs";
-  downloadCSV.download = "job_list.csv";
-  exportDiv.appendChild(downloadCSV);
-  console.log("end of download function");
-}*/

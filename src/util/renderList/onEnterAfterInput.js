@@ -6,10 +6,10 @@ function renderList() {
     const job = myJobs[i];
     const createDivTr = document.createElement("tr");
     createDivTr.id = `todo${i}`;
-    createDivTr.classList.add(job.status);
+    createDivTr.className = job.status;
     toDoContainer.appendChild(createDivTr);
     createTdElements(job, i, createDivTr);
-    addTdEventListener(job, createDivTr);
+    addTdEventListener(job, createDivTr, i);
     //console.log(`job ${job.job} description ${job.desc} due ${job.desc}`);
   }
   jobInputDiv.replaceChildren();

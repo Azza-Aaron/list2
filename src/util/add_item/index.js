@@ -32,7 +32,7 @@ function inputFunction(jobInput, descInput, dateInput) {
     desc: descInput.value,
     due: dateInput.value,
     isDateTrueFalse: validateDate(dateInput),
-    status: defaultClassStatus.TASK, //urgent (td-urgent), due, done -- check howto enums
+    status: defaultClassStatus.TASK,
   });
 
   //ACTIVATE RENDER
